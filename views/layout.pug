@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+  body
+    ul.topnav
+      li: a(href="/") Home
+      li: a(href="/consoles") Console Database
+      li: a(href="/games") Game Database
+
+      if user
+        if user["role"] == "admin"
+          li: a(href="/admin") Admin Panel
+        li.right: a(href="/auth/logout") Logout
+        li.right: a(href="/auth/user/me")= user["username"]
+
+      else
+        li.right: a(href="/auth/register") Register
+        li.right: a(href="/auth/login") Login
+
+    div.message
+      if message
+        if message == "login"
+          p.message Login Successful
+        else if message == "logout"
+          p.message Logged Out
+        else
+          p.message= message
+    
+    block content

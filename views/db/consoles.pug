@@ -1,0 +1,24 @@
+extends ../layout
+
+mixin consolelist(consoles, user) 
+  table
+    tr
+      th Name
+      th Release Year
+      th Developer
+      if user
+        if user["role"] == "admin"
+          th Edit
+    for console in consoles
+      tr
+        td= console["name"]
+        td= console["rel_year"]
+        td= console["developer"]
+        if user
+          if user["role"] == "admin"
+            td: a.button(href=`/admin/consoles/edit/${console["id"]}`) Edit
+
+block content
+  div.pageTable
+    h1 Console Database
+    +consolelist(consoles, user)

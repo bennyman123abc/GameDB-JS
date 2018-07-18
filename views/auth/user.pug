@@ -1,0 +1,22 @@
+extends ../layout
+
+mixin consoleContribTable(consoles)
+  table
+    tr
+      th Name
+      th Release Year
+      th Developer
+    for console in consoles
+      tr
+        td= console["name"]
+        td= console["rel_year"]
+        td= console["developer"]
+
+block content
+  h1= viewUser["username"] + "'s Profile"
+  h2= "Role: " + viewUser["role"].charAt(0).toUpperCase() + viewUser["role"].slice(1)
+  br
+  div(style="width: 100%; overflow: hidden;")
+    div(style="width: 550px; float: left; margin-left: 65px;")
+      h1 Newly Contributed Consoles
+      +consoleContribTable(consoles)

@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+    h1 Register
+    p.error= error
+    div(class="form")
+        form(action='/auth/register', method="POST")
+            input(id="form_username", type="text", name="username", placeholder="Username")
+            br
+            input(id="form_email", type="email", name="email", placeholder="Email Address")
+            br
+            input(id="form_password", type="password", name="password", placeholder="Password")
+            br
+            input(id="form_confirm_password", type="password", name="confirm_password", placeholder="Confirm Password")
+            br
+            br
+            input(type="submit", value="Register")

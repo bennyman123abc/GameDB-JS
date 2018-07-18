@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block content
+    h1 Login
+    p.error= error
+    div.form
+        form(action="/auth/login", method="POST")
+            input(id="form_username", type="text", name="username", placeholder="Username")
+            br
+            //- br
+            input(id="form_password", type="password", name="password", placeholder="Password")
+            br
+            br
+            input(type="submit", value="Login")

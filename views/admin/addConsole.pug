@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    h1 Add Console
+    p.error= error
+    div.form
+        form(action="/admin/consoles/add", method="POST")
+            input(id="form_name", type="text", name="name", placeholder="Console Name")
+            br
+            input(id="form_year", type="text", name="year", placeholder="Release Year")
+            br
+            input(id="form_dev", type="text", name="developer", placeholder="Console Developer")
+            br
+            br
+            input.button(type="submit", value="Add Console", style="margin: 0 auto;")
