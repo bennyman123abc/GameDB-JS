@@ -75,10 +75,30 @@ exports.getConsoleByName = async function getConsoleByName(name) {
     return await db.get("consoles", "name", name);
 }
 
+exports.getConsolesSorted = async function getConsolesSorted(key, desc=false, i=0) {
+    var data = await db.getTableSorted("consoles", key, desc);
+    if (i >= 1) {
+        return data.slice(0, i);
+    }
+    return data;
+}
+
 exports.getConsoles = async function getConsoles(i = 0) {
     var data = await db.all("SELECT * FROM consoles");
     if (i >= 1) {
         return data.slice(0, i);
     }
     return data;
+}
+
+exports.getConsolesByContributor = async function getConsolesByContributor(id, i=0) {
+    var data = await db.all(`SELECT * FROM \`consoles\` WHERE \`creator\` = "${id}"`);
+    if (i >= 1) {
+        return data.slice(0, i);
+    }
+    return data;
+}
+
+exports.deleteConsole = async function deleteConsole(id) {
+    await db.delete("consoles", id);
 }

@@ -2,30 +2,48 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/layout.css')
+    //- link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+    link(rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css")
+
   body
-    ul.topnav
-      li: a(href="/") Home
-      li: a(href="/consoles") Console Database
-      li: a(href="/games") Game Database
+    //- ul.topnav
+    //-   li: a(href="/") Home
+    //-   li: a(href="/consoles") Console Database
+    //-   li: a(href="/games") Game Database
+
+    //-   if user
+    //-     if user["role"] == "admin"
+    //-       li: a(href="/admin") Admin Panel
+    //-     li.right: a(href="/auth/logout") Logout
+    //-     li.right: a(href="/auth/user/me")= user["username"]
+
+    //-   else
+    //-     li.right: a(href="/auth/register") Register
+    //-     li.right: a(href="/auth/login") Login
+
+    //- div.message
+    //-   if message
+    //-     if message == "login"
+    //-       p.message Login Successful
+    //-     else if message == "logout"
+    //-       p.message Logged Out
+    //-     else
+    //-       p.message= message
+
+    div.w3-bar.w3-signal-black
+      a.w3-bar-item.w3-button(href="/") Home
+      a.w3-bar-item.w3-button(href="/consoles") Console Database
+      a.w3-bar-item.w3-button(href="/games") Game Database
 
       if user
         if user["role"] == "admin"
-          li: a(href="/admin") Admin Panel
-        li.right: a(href="/auth/logout") Logout
-        li.right: a(href="/auth/user/me")= user["username"]
-
+          a.w3-bar-item.w3-button(href="/admin") Admin Panel
+        a.w3-bar-item.w3-button.w3-right(href="/auth/logout") Logout
+        a.w3-bar-item.w3-button.w3-right(href="/auth/user/me")= user["username"]
+      
       else
-        li.right: a(href="/auth/register") Register
-        li.right: a(href="/auth/login") Login
-
-    div.message
-      if message
-        if message == "login"
-          p.message Login Successful
-        else if message == "logout"
-          p.message Logged Out
-        else
-          p.message= message
+        a.w3-bar-item.w3-button.w3-right(href="/auth/register") Register
+        a.w3-bar-item.w3-button.w3-right(href="/auth/login") Login
     
     block content

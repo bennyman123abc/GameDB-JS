@@ -87,7 +87,7 @@ router.get("/user/:id", async function(req, res, next) {
         next(createError(404));
     }
 
-    res.render("auth/user", { user: req.session.user, viewUser: viewUser, consoles: [] });
+    res.render("auth/user", { user: req.session.user, viewUser: viewUser, consoles: await dataDriver.getConsolesByContributor(req.params["id"]) });
 });
 
 router.get("/debug/users", async function(req, res, next){

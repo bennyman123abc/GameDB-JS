@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    div.w3-center.w3-margin(style="padding: 4%")
+        h1.w3-padding Edit Console
+        div
+            form(action=`/admin/consoles/edit/${console["id"]}`, method="POST")
+                input(id="form_name", type="text", name="name", placeholder="Console Name", value=console["name"])
+                br
+                input(id="form_year", type="text", name="rel_year", placeholder="Release Year", value=console["rel_year"])
+                br
+                input(id="form_dev", type="text", name="developer", placeholder="Console Developer", value=console["developer"])
+                br
+                br
+                input.button(type="submit", value="Edit Console", style="margin: 0 auto;")

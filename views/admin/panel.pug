@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    h1.w3-center Admin Panel
+    div.w3-row
+        div.w3-sidebar.w3-bar-block.w3-border-right.w3-border-top(style="width: 15%")
+            a.w3-bar-item.w3-button(href="/admin/users") User List
+            a.w3-bar-item.w3-button(href="/admin/consoles/add") Add Console
+        h2.w3-center: b Statistics
+        div(style="margin-left: 20%")
+            div.w3-third
+                h3.w3-card.w3-padding.w3-margin.w3-center= "Registered Users: " + userCount
+            div.w3-third(style="margin-left: 9%")
+                h3.w3-card.w3-padding.w3-margin.w3-center= "Added Consoles: " + consoleCount
+        

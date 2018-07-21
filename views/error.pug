@@ -1,6 +1,8 @@
 extends layout
 
 block content
-  h1= emessage
-  h2= error.status
-  pre #{error.stack}
+  div.w3-center
+    h1: b= emessage
+    h2= error.status
+    div.w3-rest(style="margin: 2%")
+      pre.w3-left-align #{error.stack}

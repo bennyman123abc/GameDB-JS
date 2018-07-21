@@ -46,6 +46,19 @@ class DatabaseDriver {
         return query[0];
     }
 
+    async getTableSorted(table, key, desc) {
+        var db = await this.dbPromise;
+        if (!db) {
+            console.error("Cannot access a non-existent database.");
+        }
+        if (!desc) {
+            return await db.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\``);
+        }
+        else {
+            return await db.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\` DESC`);
+        }
+    }
+
     async updateTable(table, key, value, userKey, userValue) {
         var db = await this.dbPromise;
         if (!db) {

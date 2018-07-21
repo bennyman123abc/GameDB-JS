@@ -1,17 +1,18 @@
 extends ../layout
 
 block content
-    h1 Register
-    p.error= error
-    div(class="form")
-        form(action='/auth/register', method="POST")
-            input(id="form_username", type="text", name="username", placeholder="Username")
-            br
-            input(id="form_email", type="email", name="email", placeholder="Email Address")
-            br
-            input(id="form_password", type="password", name="password", placeholder="Password")
-            br
-            input(id="form_confirm_password", type="password", name="confirm_password", placeholder="Confirm Password")
-            br
-            br
-            input(type="submit", value="Register")
+    div.w3-center.w3-margin(style="padding: 4%")
+        h1.w3-padding Register
+        h4.w3-text-red: b= error
+        div
+            form(action='/auth/register', method="POST")
+                input.w3-input(type="text", name="username", placeholder="Username", style="width: 30%; margin: 0 auto")
+                br
+                input.w3-input(type="email", name="email", placeholder="Email Address", style="width: 30%; margin: 0 auto")
+                br
+                input.w3-input(type="password", name="password", placeholder="Password", style="width: 30%; margin: 0 auto")
+                br
+                input.w3-input(type="password", name="confirm_password", placeholder="Confirm Password", style="width: 30%; margin: 0 auto")
+                br
+                br
+                input.w3-button.w3-round.w3-opacity(type="submit", value="Register")

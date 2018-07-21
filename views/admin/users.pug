@@ -1,18 +1,24 @@
 extends ../layout
 
 mixin userlist(users)
-    table
-        tr
-            th Username
-            th Email
-            th Role
-        for u in users
+    div.w3-card
+        table.w3-table.w3-striped
             tr
-                td= u["username"]
-                td= u["email"]
-                td= u["role"].charAt(0).toUpperCase() + u["role"].slice(1)
+                th Username
+                th Email
+                th Role
+                th Actions
+            for u in users
+                tr
+                    td= u["username"]
+                    td= u["email"]
+                    td= u["role"].charAt(0).toUpperCase() + u["role"].slice(1)
+                    td= div
+                        a.w3-button.w3-signal-black.w3-round(href=`/admin/users/edit/${u["id"]}`, style='padding: 6px; padding-left: 16px; padding-right: 16px; margin-right: 4px') Edit
+                        a.w3-button.w3-signal-black.w3-round(href=`/admin/users/delete/${u["id"]}`, style='padding: 6px; padding-left: 16px; padding-right: 16px') Delete
+
 
 block content
-    div.pageTable
+    div.w3-center(style="margin: 2%")
         h1 Registered Users
         +userlist(users)
