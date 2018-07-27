@@ -33,7 +33,9 @@ exports.updateUser = async function updateUser(id, key, value) {
 }
 
 exports.getUserByID = async function getUserByID(id) {
-    return await db.get("users", "id", id) || null;
+    var user = await db.get("users", "id", id) || null;
+    // console.log(user);
+    return user;
 }
 
 exports.getUserByUsernameOrEmail = async function getUserByUsernameOrEmail(value) {
@@ -77,16 +79,26 @@ exports.getConsoleByName = async function getConsoleByName(name) {
 
 exports.getConsolesSorted = async function getConsolesSorted(key, desc=false, i=0) {
     var data = await db.getTableSorted("consoles", key, desc);
-    if (i >= 1) {
-        return data.slice(0, i);
+    if (i >= 1 && data) {
+        try {
+            return data.slice(0, i);
+        }
+        catch(err) {
+            return null;
+        }
     }
     return data;
 }
 
 exports.getConsoles = async function getConsoles(i = 0) {
     var data = await db.all("SELECT * FROM consoles");
-    if (i >= 1) {
-        return data.slice(0, i);
+    if (i >= 1 && data) {
+        try {
+            return data.slice(0, i);
+        }
+        catch(err) {
+            return null;
+        }
     }
     return data;
 }
@@ -94,11 +106,80 @@ exports.getConsoles = async function getConsoles(i = 0) {
 exports.getConsolesByContributor = async function getConsolesByContributor(id, i=0) {
     var data = await db.all(`SELECT * FROM \`consoles\` WHERE \`creator\` = "${id}"`);
     if (i >= 1) {
-        return data.slice(0, i);
+        try {
+            return data.slice(0, i);
+        }
+        catch(err) {
+            return null;
+        }
     }
     return data;
 }
 
 exports.deleteConsole = async function deleteConsole(id) {
     await db.delete("consoles", id);
+}
+
+exports.getConsoleData = async function getConsoleData() {
+    var data = await db.all("SELECT * FROM consoles");
+    console.log(data);
+    var cdata = {};
+
+    for (var i = 0; i < data.length; i++) {
+        var c = data[i];
+        console.log(c["id"]);
+        console.log(c["name"]);
+        cdata[parseInt(c["id"])] = c["name"];
+        console.log(cdata[parseInt(c["id"])]);
+    }
+    // for (var c in data) {
+    //     console.log(c["id"]);
+    //     console.log(c["name"]);
+    //     cdata[c["id"]] = c["name"];
+    //     console.log(cdata[c["id"]]);
+    // }
+
+    return cdata;
+}
+
+exports.deleteGame = async function deleteGame(id) {
+    await db.delete("games", id);
+}
+
+exports.getGamesSorted = async function getGamesSorted(key, desc=false, i=0) {
+    var data = await db.getTableSorted("games", key, desc);
+    if (i >= 1 && data) {
+        try {
+            return data.slice(0, i);
+        }
+        catch(err) {
+            return null;
+        }
+    }
+    return data;
+}
+
+exports.getGames = async function getGames(i=0) {
+    var data = await db.all("SELECT * FROM games");
+    if (i >= 1 && data) {
+        try {
+            return data.slice(0, i);
+        }
+        catch(err) {
+            return null;
+        }
+    }
+    return data;
+}
+
+exports.getGameByID = async function getGameByID(id) {
+    return await db.get("games", "id", id) || null;
+}
+
+exports.addGame = async function addGame(name, console, region, rel_date, publisher, tid, size, rating, creator) {
+    if (await db.get("games", "name", name)) {
+        return false;
+    }
+    await db.insert("games", ["name", "console", "region", "rel_date", "publisher", "tid", "size", "rating", "creator", "time_added"], [name, console, region, rel_date, publisher, tid, size, rating, creator["id"], Date.now()]);
+    return await db.get("games", "name", name);
 }

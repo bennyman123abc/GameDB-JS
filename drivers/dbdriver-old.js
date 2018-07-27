@@ -37,24 +37,13 @@ class DatabaseDriver {
 
     async get(table, key, value) {
         var db = await this.dbPromise;
-        // var results;
-
         if (!db) {
             console.error("Cannot access a non-existent database.");
         }
 
-        var query = await new Promise(function(resolve, reject) {
-            db.get(`SELECT * FROM \`${table}\` WHERE \`${key}\` = "${value}"`, function(err, row) {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(row);
-                }
-            });
-        });
+        var query = await db.all(`SELECT * FROM \`${table}\` WHERE \`${key}\` = "${value}"`);
 
-        return query;
+        return query[0];
     }
 
     async getTableSorted(table, key, desc) {
@@ -63,10 +52,10 @@ class DatabaseDriver {
             console.error("Cannot access a non-existent database.");
         }
         if (!desc) {
-            return await this.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\``);
+            return await db.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\``);
         }
         else {
-            return await this.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\` DESC`);
+            return await db.all(`SELECT * FROM \`${table}\` ORDER BY \`${key}\` DESC`);
         }
     }
 
@@ -96,16 +85,7 @@ class DatabaseDriver {
             console.error("Cannot access a non-existent database.");
         }
 
-        return await new Promise(function(resolve, reject) {
-            db.all(sql, function(err, rows) {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(rows);
-                }
-            });
-        });
+        return await db.all(sql);
     }
 }
 

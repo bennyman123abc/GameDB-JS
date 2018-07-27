@@ -13,7 +13,7 @@
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
-    "sqlite": "^2.9.2",
+    "simpler-sql": "^1.0.0",
     "sqlite3": "^4.0.2"
   }
 }

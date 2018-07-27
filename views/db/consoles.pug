@@ -22,6 +22,7 @@ mixin consolelist(consoles, user)
                 a.w3-button.w3-signal-black.w3-round(href=`/admin/consoles/delete/${console["id"]}`, style='padding: 6px; padding-left: 16px; padding-right: 16px') Delete
 
 block content
-  div.w3-center(style="margin: 2%")
-    h1 Console Database
-    +consolelist(consoles, user)
+  div.w3-center.w3-margin-top.w3-container
+    if consoles
+      h1 Console Database
+      +consolelist(consoles, user)

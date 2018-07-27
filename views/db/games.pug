@@ -1,0 +1,36 @@
+extends ../layout
+
+mixin gamelist(games, user) 
+    div.w3-card
+        table.w3-table.w3-striped
+            tr
+                th Name
+                th Console
+                th Region(s)
+                th Release Date
+                th Publisher
+                th Title ID/Game ID
+                th Rating
+                if user
+                    if user["role"] == "admin"
+                        th Actions
+            tr
+                for game in games
+                    td= game["name"]
+                    td= consoleData[game["console"]]
+                    td= game["region"]
+                    td= game["rel_date"]
+                    td= game["publisher"]
+                    td= game["tid"]
+                    td= game["rating"] + "/10"
+                    if user
+                        if user["role"] == "admin"
+                        td: div
+                            a.w3-button.w3-signal-black.w3-round(href=`/admin/games/edit/${game["id"]}`, style='padding: 6px; padding-left: 16px; padding-right: 16px; margin-right: 4px') Edit
+                            a.w3-button.w3-signal-black.w3-round(href=`/admin/games/delete/${game["id"]}`, style='padding: 6px; padding-left: 16px; padding-right: 16px') Delete
+
+block content
+    div.w3-center.w3-margin-top.w3-container
+        if games
+            h1 Game Database
+            +gamelist(games, user)
