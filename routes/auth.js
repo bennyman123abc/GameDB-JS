@@ -90,14 +90,6 @@ router.get("/user/:id", async function(req, res, next) {
     res.render("auth/user", { user: req.session.user, viewUser: viewUser, consoles: await dataDriver.getConsolesByContributor(req.params["id"]) });
 });
 
-router.get("/debug/users", async function(req, res, next){
-    res.send(await dataDriver.getUsers());
-});
-
-router.get("/debug/user", async function(req, res, next) {
-    res.send(await dataDriver.getUserByUsernameOrEmail("bennyman123abc"))
-});
-
 function generateSalt() {
     return crypto.createHash("sha512").update(crypto.randomBytes(128).toString()).digest('hex');
 }
